@@ -1,11 +1,17 @@
+import { Steps } from "nextra/components"
+
 # Refunds: How to Process Refunds for User Purchases
 
-## One-time Payment Refund
+## Refund
 
-1. Navigate to the [User Dashboard](https://prd-xms-api.combinedcuriosity.io/admin/users/).
-2. Locate the user you want to refund and find the corresponding order.
-3. Click the `Refund` icon next to the offer you wish to refund.
-4. Provide a reason for the refund and click `Refund Item`.
+### One-time Payment Refund
+
+<Steps>
+### Navigate to the [User Dashboard](https://prd-xms-api.combinedcuriosity.io/admin/users/).
+### Locate the user you want to refund and find the corresponding order.
+### Click the `Refund` icon next to the offer you wish to refund.
+### Provide a reason for the refund and click `Refund Item`.
+</Steps>
 
 #### Resulting Statuses
 
@@ -17,12 +23,14 @@
 | Original Invoice             | paid           | 
 | Refund Invoice                | paid           | 
 
-## Payment Plan Refund
+### Payment Plan Refund
 
-1. Navigate to the [User Dashboard](https://prd-xms-api.combinedcuriosity.io/admin/users/).
-2. Find the user and the corresponding order.
-3. Click the `Refund` icon next to the offer you want to refund.
-4. Provide a reason for the refund and click `Refund Item`.
+<Steps>
+### Navigate to the [User Dashboard](https://prd-xms-api.combinedcuriosity.io/admin/users/).
+### Find the user and the corresponding order.
+### Click the `Refund` icon next to the offer you want to refund.
+### Provide a reason for the refund and click `Refund Item`.
+</Steps>
 
 #### Resulting Statuses
 
@@ -39,12 +47,14 @@
 
 ### One-time Payment Partial Refund
 
-1. Navigate to the [User Dashboard](https://prd-xms-api.combinedcuriosity.io/admin/users/).
-2. Locate the user and the order you want to refund.
-3. Click the `Refund` icon next to the offer.
-4. Click the edit icon next to the Refund Amount field.
-5. Enter the amount to refund.
-6. Provide a reason for the refund and click `Refund Item`.
+<Steps>
+### Navigate to the [User Dashboard](https://prd-xms-api.combinedcuriosity.io/admin/users/).
+### Locate the user and the order you want to refund.
+### Click the `Refund` icon next to the offer.
+### Click the edit icon next to the Refund Amount field.
+### Enter the amount to refund.
+### Provide a reason for the refund and click `Refund Item`.
+</Steps>
 
 #### Resulting Statuses
 
@@ -58,12 +68,14 @@
 
 ### Payment Plan Adjustment
 
-1. Navigate to the [User Dashboard](https://prd-xms-api.combinedcuriosity.io/admin/users/).
-2. Find the user and the order you want to adjust.
-3. Click the `Edit` button at the top right corner.
-4. Enter the new expected value.
-5. Reconcile the difference in the `Refund Amount` field with future invoices.
-6. Once accounted for, click `Submit Adjustments`.
+<Steps>
+### Navigate to the [User Dashboard](https://prd-xms-api.combinedcuriosity.io/admin/users/).
+### Find the user and the order you want to adjust.
+### Click the `Edit` button at the top right corner.
+### Enter the new expected value.
+### Reconcile the difference in the `Refund Amount` field with future invoices.
+### Once accounted for, click `Submit Adjustments`.
+</Steps>
 
 #### Resulting Statuses
 
@@ -77,7 +89,7 @@
 
 **Note:** The expected amount is now the original amount minus the adjustment.
 
-## Refund Process Overview
+## Refund Process Overview [#value-in-meaning]
 
 ```mermaid
 graph TD;

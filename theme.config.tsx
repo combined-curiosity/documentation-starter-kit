@@ -17,6 +17,17 @@ const config: DocsThemeConfig = {
   footer: {
     component: <span/>,
   },
+  banner: {
+    "dismissible": true,
+    "key": "notice-banner",
+    "text": "Brand spanking new Doc Site. Enjoy!",
+  },
+  toc: {
+    backToTop: true,
+  },
+  feedback: {
+    useLink: () => "https://combinedcuriosity.slack.com/archives/C042JJE86AH",
+  }
 }
 
 export default config
