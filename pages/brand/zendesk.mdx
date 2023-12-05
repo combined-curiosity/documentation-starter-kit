@@ -1,0 +1,28 @@
+import { Steps } from 'nextra/components'
+
+# Zendesk
+
+## Zendesk Brand ID Retrieval
+
+To retrieve the Zendesk ID for a brand, follow these steps:
+
+<Steps>
+### Log into Zendesk using the pianoinaflash domain and the credentials from 1pass.
+### Click the "Admin" tab from the left menu and then click "Go to Admin Center."
+### Click "Channels," then "Web Widget."
+### Click the desired brand.
+### Then, go to the "Installation" tab.
+### Copy the ID from the end of the web address.
+```javascript /str/src/
+<!-- Start of Zendesk Widget script -->
+  <script
+    id="ze-snippet"
+    src="https://static.zdassets.com/ekr/snippet.js?key=6d29b999-bd2a-4898-9fdd-9edf5d5f0c83"
+  />
+<!-- End of Zendesk Widget script -->
+```
+
+_You can find the Zendesk ID in the "key" attribute, for example, from the sample "6d29b999-bd2a-4898-9fdd-9edf5d5f0c83."_
+
+### Finally add that key to the GTM instance.
+</Steps>

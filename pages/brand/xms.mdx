@@ -1,0 +1,23 @@
+import { Steps } from 'nextra/components'
+
+# XMS
+
+<Steps>
+### Create a new brand.
+### Create brand configuration.
+### Add Stripe keys to ENV files.
+  Update Stripe ENV variables in:
+    - `build_container.sh`
+    - `Dockerfile`
+    - `prd-cicd.yaml`
+    - `stg-cicd.yaml`
+    - `cicd.yaml`
+    - `homePageValidation.yml`
+    - `dataValidators.yml`
+### Add abbreviation to `loadDaisyTheme.ts`, and `KnownBrand` type in `types/index.ts`.
+### Add testimonials to `pages/checkout/modal`.
+### If we will ship physical products:
+  - Ensure support email and phone number are added to brand configuration.
+  - Account for the new brand in `parcel value_amount` and `hs_code` in relevant sections.
+  - Update USPS rate filtering in `createShippoShipment`.
+</Steps>

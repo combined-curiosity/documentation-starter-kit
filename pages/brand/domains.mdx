@@ -1,0 +1,16 @@
+import { Steps } from 'nextra/components'
+
+# Domains
+
+<Steps>
+### Import DNS into Cloudflare.
+  Add zone id to mapping in Terraform [Example](https://github.com/combined-curiosity/xms/pull/79/files#diff-643f4c94ea3912fcb9cf7a2b052c02d9c3f74f08fb103db21c87c08e8e621424R16).
+### Add wildcard domain certificate into AWS Certificate Manager.
+### Terraform create events domain (`e.<brand domain>.com`).
+### Terraform create CollectorJS Domain (`cjs.<brand domain>.com`).
+### Manually create XMS-API wrapper subdomains (`buy.`, `cc-api.`).
+### Manually create LX wrapper subdomain.
+  - Add to existing internal Cloudfront distribution with `<brand>-prd-lx.combinedcuriosity.io`.
+  - Add `cc.io` DNS entry in Route53.
+  - Add brand domain passthrough distribution of `learn.<brand domain>.com`.
+</Steps>

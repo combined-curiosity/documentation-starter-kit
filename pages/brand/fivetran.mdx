@@ -1,0 +1,21 @@
+import { Steps } from 'nextra/components'
+
+# Fivetran - integrations into the warehouse
+
+Login to [fivetran](https://fivetran.com/login) - credentials are in 1pass.
+
+<Steps>
+### Edit connection details on `facebook_ads_setup_raw` to include the new brand.
+### Edit connection details on `facebook_insights_raw` to include the new brand.
+### Verify Pinterest ads and TikTok ads connections are syncing the new brand to the warehouse.
+### Create a new schema in the warehouse called `adwords_<brand abbreviation>`.
+### Grant write permissions on that schema to the `fivetran` user.
+### Create a new Google Ads connection in fivetran syncing to the new schema for the new brand's Google Ads account.
+### Once the initial sync is complete, grant read/write permissions to the respective read/write groups in the warehouse by running the result of this query:
+
+```sql copy
+select cc_permissions_standard_read_write('adwords_<brand abbrev>', 'read_write')
+union all
+select cc_permissions_standard_read_only('adwords_<brand abbrev>', 'read_only');
+```
+</Steps>

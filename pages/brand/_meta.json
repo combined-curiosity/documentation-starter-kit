@@ -1,0 +1,13 @@
+{
+  "gtm": "Google Tag Manager",
+  "stripe": "Stripe",
+  "xms": "XMS",
+  "lms": "Learning Management System",
+  "github": "GitHub",
+  "domains": "Domains",
+  "drip": "Drip",
+  "fivetran": "Fivetran",
+  "dbt": "DBT",
+  "events": "Events Server",
+  "zendesk": "Zendesk"
+}
