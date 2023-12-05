@@ -1,10 +1,10 @@
 # Nextra Docs Template 
 
-This is a template for creating documentation with [Nextra](https://nextra.site).
+This site was built from a template for creating documentation with [Nextra](https://nextra.site).
 
-[**Live Demo →**](https://nextra-docs-template.vercel.app)
-
-[![](.github/screenshot.png)](https://nextra-docs-template.vercel.app)
+- [Theme Configuration](https://nextra.site/docs/docs-theme)
+- [Guide](https://nextra.site/docs/guide)
+- [Mermaid](https://mermaid.js.org/intro/)
 
 ## Local Development
 
@@ -64,9 +64,3 @@ _We should not remove documentation but we can hide it._
     }
     ```
 1. Commit your changes and push to GitHub. The site will automatically update.
-
-#### Documentation Links 
-- [Nextra](https://nextra.site/docs)
-  - [Theme Configuration](https://nextra.site/docs/docs-theme)
-  - [Guide](https://nextra.site/docs/guide)
-  - [Mermaid](https://mermaid.js.org/intro/)
