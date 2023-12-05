@@ -2,8 +2,21 @@ import React from 'react'
 import { DocsThemeConfig } from 'nextra-theme-docs'
 import { FaSlack } from "react-icons/fa"
 import Logo from './components/logo'
+import { useRouter } from 'next/router'
 
 const config: DocsThemeConfig = {
+  useNextSeoProps() {
+    const { asPath } = useRouter()
+    if (asPath !== '/') {
+      return {
+        titleTemplate: '%s | CC Docs'
+      }
+    } else {
+      return {
+        titleTemplate: 'CC Docs'
+      }
+    }
+  },
   logo: <Logo />,
   logoLink: "/",
   project: {
@@ -27,7 +40,12 @@ const config: DocsThemeConfig = {
   },
   feedback: {
     useLink: () => "https://combinedcuriosity.slack.com/archives/C042JJE86AH",
-  }
+  },
+  head: (
+    <>
+      <meta name="favicon" content="/favicon.ico" />
+    </>
+  ),
 }
 
 export default config
