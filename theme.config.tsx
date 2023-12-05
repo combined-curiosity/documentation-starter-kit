@@ -1,7 +1,7 @@
-import React from 'react'
 import { DocsThemeConfig } from 'nextra-theme-docs'
 import { FaSlack } from "react-icons/fa"
 import Logo from './components/logo'
+import React from 'react'
 import { useRouter } from 'next/router'
 
 const config: DocsThemeConfig = {
