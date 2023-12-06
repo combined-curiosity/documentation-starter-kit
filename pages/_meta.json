@@ -2,7 +2,9 @@
   "index": {
     "display": "hidden"
   },
+  "analytics": "Analytics",
   "brand": "Brand On Boarding Guide",
+  "marketing": "Marketing",
   "process": "Process Documentation",
   "technical": "Technical Documentation"
 }
