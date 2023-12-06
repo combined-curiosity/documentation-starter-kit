@@ -1,4 +1,4 @@
-# Nextra Docs Template 
+# CC Docs 
 
 This site was built from a template for creating documentation with [Nextra](https://nextra.site).
 
