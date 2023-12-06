@@ -1,6 +1,6 @@
 import { DocsThemeConfig } from 'nextra-theme-docs'
 import { FaSlack } from "react-icons/fa"
-import Logo from './components/logo'
+import Image from 'next/image'
 import React from 'react'
 import { useRouter } from 'next/router'
 
@@ -38,7 +38,19 @@ const config: DocsThemeConfig = {
       <meta name="favicon" content="/favicon.ico" />
     </>
   ),
-  logo: <Logo />,
+  logo: (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <Image
+        src="/cc_logo.jpg" // Path to your image in the public directory
+        alt="Logo"
+        width={36}
+        height={36}
+      />
+      <span style={{ marginLeft: '.4em', fontWeight: 800 }}>
+        Docs
+      </span>
+    </div>
+  ),
   logoLink: "/",
   primaryHue: { dark: 480, light: 650 },
   primarySaturation: { dark: 70, light: 100 },

@@ -1,5 +1,5 @@
 {
-  "-": {
+  "payments": {
     "title": "Payments",
     "type": "separator"
   },
@@ -7,11 +7,13 @@
   "taking-payments": "Taking payments",
   "exchanges": "Exchanges",
   "refunds": "Refunds",
-  "--": {
+  "brands": {
+    "title": "",
     "type": "separator"
   },
   "brand": "Create a new brand",
-  "---": {
+  "others": {
+    "title": "",
     "type": "separator"
   },
   "webinars": "Webinars"  
