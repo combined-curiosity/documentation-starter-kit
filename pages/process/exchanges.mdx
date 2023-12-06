@@ -1,14 +1,37 @@
 import { Callout } from "nextra/components"
+import { Steps } from "nextra/components"
 
-# Exchanges
+# Exchanges: How to Process Exchanges for User Purchases
 
 <Callout type="info" emoji="🗿">
 **Note:** This is a placeholder. Feel free to add content!
 </Callout>
 
-## How to exchange a one time payment or another one time payment [#opt-to-otp]
+## Exchange
 
-Coming Soon
+### One time payment for another one time payment [#opt-to-otp]
+
+<Steps>
+### Navigate to the [User Dashboard](https://prd-xms-api.combinedcuriosity.io/admin/users/).
+### Locate the user you want to exchange offers for and find the corresponding order.
+### Click the `Exchange` icon next to the offer you wish to exchange.
+The exchange icon is a dollar sign encircled by two arrows.
+### Select the offer from the "New Item" dropdown you wish to exchange for.
+### Provide a reason for the exchange and click `Exchange Item`.
+</Steps>
+
+_A successful exchange will be confirmed by a green message displayed at the top, confirming the successful processing of the exchange._
+
+#### Resulting Statuses
+
+| Payment Object               | Status         | 
+| ---------------------------- | -------------- | 
+| Order                        | paid           |
+| Original Order Line Item     | exchanged      | 
+| Exchanged Order Line Item    | paid           |
+| Shipping Order Line Item     | paid           |
+| Original Invoice             | paid           | 
+| Exchanged Invoice            | paid           | 
 
 ## How to exchange a one time payment for a payment plan [#opt-to-pp]
 

@@ -10,8 +10,11 @@ import { Steps } from "nextra/components"
 ### Navigate to the [User Dashboard](https://prd-xms-api.combinedcuriosity.io/admin/users/).
 ### Locate the user you want to refund and find the corresponding order.
 ### Click the `Refund` icon next to the offer you wish to refund.
+The refund icon is a blue box with a left pointing arrow.
 ### Provide a reason for the refund and click `Refund Item`.
 </Steps>
+
+_A successful refund is indicated by a green confirmation message appearing at the top, confirming that the refund amount has been successfully processed._
 
 #### Resulting Statuses
 
@@ -21,7 +24,7 @@ import { Steps } from "nextra/components"
 | Refunded Order Line Item     | refunded       |
 | Shipping Order Line Item     | paid           |
 | Original Invoice             | paid           | 
-| Refund Invoice                | paid           | 
+| Refund Invoice               | paid           | 
 
 ### Payment Plan Refund
 
@@ -29,8 +32,11 @@ import { Steps } from "nextra/components"
 ### Navigate to the [User Dashboard](https://prd-xms-api.combinedcuriosity.io/admin/users/).
 ### Find the user and the corresponding order.
 ### Click the `Refund` icon next to the offer you want to refund.
+The refund icon is a blue box with a left pointing arrow.
 ### Provide a reason for the refund and click `Refund Item`.
 </Steps>
+
+_A successful refund is indicated by a green confirmation message appearing at the top, confirming that the refund amount has been successfully processed._
 
 #### Resulting Statuses
 
@@ -40,7 +46,7 @@ import { Steps } from "nextra/components"
 | Refunded Order Line Item     | refunded       |
 | Shipping Order Line Item     | paid           |
 | Original Invoice             | paid           | 
-| Refund Invoice                | paid           | 
+| Refund Invoice               | paid           | 
 | Future Invoices              | cancelled      |
 
 ## Partial Refund
@@ -51,20 +57,24 @@ import { Steps } from "nextra/components"
 ### Navigate to the [User Dashboard](https://prd-xms-api.combinedcuriosity.io/admin/users/).
 ### Locate the user and the order you want to refund.
 ### Click the `Refund` icon next to the offer.
+The refund icon is a blue box with a left pointing arrow.
 ### Click the edit icon next to the Refund Amount field.
 ### Enter the amount to refund.
+For example, if the customer paid $10.00 for an item that was later seen in an email priced at $8.00, enter the refund amount as $2.00.
 ### Provide a reason for the refund and click `Refund Item`.
 </Steps>
+
+_A successful partial refund is indicated by a green confirmation message appearing at the top, confirming that the refund amount has been successfully processed._
 
 #### Resulting Statuses
 
 | Payment Object               | Status               | 
 | ---------------------------- | -------------------- | 
-| Order                        | partially_refunded  | 
-| Refunded Order Line Item     | partially_refunded  |
+| Order                        | partially_refunded   | 
+| Refunded Order Line Item     | partially_refunded   |
 | Shipping Order Line Item     | paid                 |
 | Original Invoice             | paid                 | 
-| Refund Invoice                | paid                 | 
+| Refund Invoice               | paid                 | 
 
 ### Payment Plan Adjustment
 
