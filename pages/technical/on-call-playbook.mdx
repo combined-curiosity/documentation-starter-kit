@@ -1,0 +1,36 @@
+# On-Call Playbook
+
+Software is a perpetual work in progress, and effective communication is crucial. To manage this, two engineers are dedicated to the on-call rotation for two weeks at a time. The aim is to avoid confusion or the [bystander effect](https://www.psychologytoday.com/us/basics/bystander-effect), ensuring a prompt and focused response.
+
+## Stakeholder Communication: #dev-help
+Stakeholders post questions, feedback, or requests in [#dev-help](https://combinedcuriosity.slack.com/archives/C042JJE86AH). The on-call engineers monitor this channel to respond promptly. Responses may involve dialogues, ticketing items, or immediate resolution.
+
+**SLA:**
+- Response within 2 hours
+- Next steps reported (or undertaken) within 1 business day
+
+## Outage Management: #outages
+When an outage is identified, on-call personnel post a TLDR/link/update in [#outages](https://combinedcuriosity.slack.com/archives/C02KTBKC4NT), managing communications and collaboration during the event. They create a new channel for the outage, keep discussions clear, involve relevant stakeholders, and post the final confirmation or next steps.
+
+_**Note:** New channel should be formatted `#YYYYmmdd-some-description`_
+
+After an incident, the on-call person initiates a retro meeting within 1-2 business days for a thorough review and documentation. An entry needs to be made in the [Outage Log](https://docs.google.com/forms/d/15wM1aNzUECPO1gu-x6XH75Jgd7uK0DWBMYGGv--b408/edit) before or after the retro and a new [retro doc](https://drive.google.com/drive/folders/1NR5JJtyVxLHOU4Uw06jMo2E7ALZCUjO6) should be made (from prior ones) to walk through the conversation with everyone in the retro as well as note whatever the next steps are for future mitigation. Those next steps can be ticketed by the on call person within Linear, too, or coordinated with John.
+
+**SLA:**
+- Respond and coordinate specific incident channel ASAP
+- Retro within 1-2 business days
+
+## Product Releases: #product-releases
+On-call engineers are ideally responsible for cutting releases. After a release, a post in [#product-releases](https://combinedcuriosity.slack.com/archives/C043FAB9196) notifies the company about the changes. This post should be tailored for a broader, non-technical audience.
+
+**SLA:**
+- Whenever new code goes live
+
+### Additional Information:
+_[Original slides](https://docs.google.com/presentation/d/1hHfCWz-KE1Z70xlIHsfDgFjccXWrbb3e5HwTKwA7HtA/edit?usp=sharing) presented to Support & CC_
+- The Primary and Secondary roles are arbitrary, and the Primary is the first point of contact. Secondary serves as a safety net, and communication about OOO or AFK ensures responsiveness.
+- Mini-comms guide:
+  - 👀 seen and looking
+  - 📝 ticketed (placed into triage)
+  - 🔍 deeper investigation ongoing
+  - ✅ confirmed solved
