@@ -1,23 +1,79 @@
-import { Callout } from "nextra/components"
+import { Steps } from "nextra/components"
 
 # Taking Payments
 
-<Callout type="info" emoji="🗿">
-**Note:** This is a placeholder. Feel free to add content!
-</Callout>
-
 ## How to get the embed code for the payment modal [#embed-code]
 
-Coming Soon
+<Steps>
+  ### Navigate to the [Brand Dashboard](https://prd-xms-api.combinedcuriosity.io/admin/brands/).
+  ### Select the brand you want to get the embed code for.
+  ### Click the offers tab.
+  ### Find the offer you want to embed and click the code icon.
+  The code icon is two arrows pointing outwards.
+  ### Enter the css selector for th element you want to trigger the embed code.
+  ### Select the shipping offer
+  ### Click anywhere in the gray box to copy the embed code.
+</Steps>
 
 ## How to get the purchase link for the payment modal [#purchase-link]
 
-Coming Soon
+<Steps>
+  ### Navigate to the [Brand Dashboard](https://prd-xms-api.combinedcuriosity.io/admin/brands/).
+  ### Select the brand you want to get the purchase link for.
+  ### Click the offers tab.
+  ### Next to the Offers title, click the take my money icon.
+  The take my money icon is a hand holding cash.
+  ### Select one or many offers to purchase.
+  ### Select the shipping offer if for an international customer.
+  ### Click anywhere in the gray box to copy the purchase link.
+</Steps>
 
 ## How to payoff a payment plan [#pp-payoff]
 
-Coming Soon
+<Steps>
+  ### Navigate to the [User Dashboard](https://prd-xms-api.combinedcuriosity.io/admin/users/).
+  ### Locate the user who wants to pay off their payment plan.
+  ### Click the take my money icon next to the order they want to pay off.
+  ### Confirm that they want to payoff the payment plan.
+</Steps>
+
+_A successful payoff will be confirmed by a green message displayed at the top._
+
+#### Resulting Statuses
+
+| Payment Object            | Status   |
+| ------------------------- | -------- |
+| Order                     | paid     |
+| Order Line Item           | paid     |
+| Shipping Order Line Item  | paid     |
+| Original Invoice          | paid     |
+| Payoff Invoice            | paid     |
+| Future Invoices           | canceled |
 
 ## What the payment process looks like [#value-in-meaning]
 
-Coming Soon
+_This diagram illustrates the high-level flow of the payment process._
+
+```mermaid
+graph TD;
+    A[Payment Modal Submitted] --> B[Create/Retrieve User];
+    B --> |* Only Stripe Currently| C[Find/Create Customer in Stripe];
+    C --> D[Attach Card Information to User in Stripe];
+    D --> E[Create Order and Invoices];
+    E --> F[Charge First Invoice];
+    F --> G[Create User Address];
+    G --> H[Send Welcome Email];
+    F --> I[Stripe Response];
+    O --> J[Create Success Transaction];
+    J -->|* Order, Order Line Item, Invoice| K[Update Statuses];
+    K --> L[Update User Access];
+    K --> M[Send Shippo Information];
+    M --> N[Send Slack Message];
+    I --> O[Success Message];
+    I --> P[Failure Message];
+    P --> Q[Create Failure Transaction];
+    Q -->|* Order, Order Line Item, Invoice| R[Update Statuses];
+
+    style O fill:#006400,stroke:#004d00,stroke-width:2px,color:#ffffff
+    style P fill:#8b0000,stroke:#590000,stroke-width:2px,color:#ffffff
+```

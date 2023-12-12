@@ -101,6 +101,8 @@ _A successful partial refund is indicated by a green confirmation message appear
 
 ## Refund Process Overview [#value-in-meaning]
 
+_This diagram illustrates the high-level flow of the refund process from form submission to syncing with the integration server and removing access to refunded products._
+
 ```mermaid
 graph TD;
   A[Refund Form Submission] --> B[Create Refund Invoices];
@@ -112,5 +114,3 @@ graph TD;
   G --> H[Sync with Integration Server];
   H --> I[Remove Access to Refunded Products];
 ```
-
-This diagram illustrates the high-level flow of the refund process from form submission to syncing with the integration server and removing access to refunded products.
