@@ -67,7 +67,7 @@ graph TD;
     O --> J[Create Success Transaction];
     J -->|* Order, Order Line Item, Invoice| K[Update Statuses];
     K --> L[Update User Access];
-    K --> M[Send Shippo Information];
+    L --> M[Send Shippo Information];
     M --> N[Send Slack Message];
     I --> O[Success Message];
     I --> P[Failure Message];
