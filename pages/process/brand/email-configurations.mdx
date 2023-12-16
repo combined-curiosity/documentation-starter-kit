@@ -1,0 +1,53 @@
+import { Steps } from "nextra/components"
+
+# Email Configurations
+
+We avoid using Drip for emails that require immediate delivery since Drip does not send emails instantly and has been observed to take 20-30 minutes. Instead, we create templates in MailJet and refer to them in our email configurations.
+
+## How to add a email config
+
+<Steps>
+  ### Create a tempalte in MailJet
+  1. Navigate to [MailJet](https://app.mailjet.com/templates/transactional).
+  1. Click the "Create a new template" button.
+  1. Select an existing template to copy, one from the gallery, or create a new one from scratch.
+  1. Make any changes you wish to the template.
+  1. Click the "Save & Publish" button.
+  1. Confirm the action with the "Yes, publish changes" button.
+  1. Click the "Copy Tempalte ID" button to store the template id in your clipboard.
+  ### Navigate to the [Brand Dashboard](https://prd-xms-api.combinedcuriosity.io/admin/brands/).
+  1. Select the brand you want to add the template to.
+  1. Click the emails tab.
+  1. Click the plus icon next to the section title.
+  1. Fill in any necessary information in the form. (Including pasting the tempalte id from earlier)
+  1. Click the "Create" button.
+  1. You will receive a confirmation message about the successful configuration creation.
+  1. The page will refresh, and you will see the new email configuration entry.
+</Steps>
+
+## How to edit an existing email config
+
+<Steps>
+  ### Navigate to the [Brand Dashboard](https://prd-xms-api.combinedcuriosity.io/admin/brands/).
+  ### Click the pencil and paper icon next to the entry you would like to edit.
+  ### Make any necessary changes in the form.
+  ### Click the "Update" button when finished.
+  ### A confirmation message will indicate the successful update of the configuration.
+  ### The page will refresh, and you will see the updated email configuration entry.
+</Steps>
+
+## What do all the values mean?
+
+_Note: These values are utilized by Mailjet._
+
+**Type:** Informs our system about the email configuration to use.
+
+**From Email:** Provides a reply location for students.
+
+**From Name:** Indicates the brand-associated contact person.
+
+**Subject:** Used by Mailjet for the email subject field.
+
+**Template ID:** Identified by Mailjet to select the correct template.
+
+**Redirect URL:** _Optional_, directing users after reading the email.

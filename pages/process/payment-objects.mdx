@@ -1,31 +1,34 @@
-import { Callout } from "nextra/components"
+import Image from "next/image"
 
 # Payment Objects
 
-<Callout type="info" emoji="🗿">
-**Note:** This is a placeholder. Feel free to add content!
-</Callout>
+Our current business model involves selling offers. Each offer comprises a single package, and each package contains at least one product. These products serve as both the access points for users within our system and the items we dispatch to them via mail.
 
-## Create a product
+- [Offers](/process/payment-objects/offers)
+- [Packages](/process/payment-objects/packages)
+- [Products](/process/payment-objects/products)
 
-Coming Soon
+The information from these objects is how we build out the payment modal.
+<br/>
 
-## Create a package
+<Image src="/modal-single-payment.png" width={800} height={400}/>
 
-Coming Soon
+1. **Name** - Comes from the name of the offer.
+2. **Description** - Comes from the description of the offer.
+3. **Display Price** - Comes from the display price of the package.
+4. **Price** - Comes from the price of the offer.
+5. **Guarantee** - Only appears if the package has a digital product.
+6. **Savings** - Is calculated by subtracting the price of the offer from the display price of the package.
+<br/>
 
-### Associate a product with a package
+<Image src="/modal-payment-plan.png" width={800} height={500} />
 
-Coming Soon
-
-## Create an offer
-
-Coming Soon
-
-## Create a display offer
-
-Coming Soon
-
-## What do all these values mean? [#value-in-meaning]
-
-Coming Soon
+1. **Name** - Comes from the name of the offer.
+2. **Description** - Comes from the description of the offer.
+3. **Display Price** - Comes from the display price of the package.
+4. **Price** - Comes from the price of the offer divided by the number of installments.
+5. **Terms** - Comes from the number of installments on the offer and the total price of the offer divided by the number of installments.
+6. **Guarantee** - Only appears if the package has a digital product.
+7. **Remaining Terms** - Is calculated by the number of remaining installments after the current one is paid.
+8. **Next Payment Date** - Is calculated by adding 30 days to the current date.
+9. **Remaining Terms Section** - Is only displayed if number of installments is greater than 1.
