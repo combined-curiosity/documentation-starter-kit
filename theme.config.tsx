@@ -26,7 +26,7 @@ const config: DocsThemeConfig = {
     link: 'https://combinedcuriosity.slack.com/archives/C042JJE86AH',
     icon: <FaSlack style={{ width: "25px", height: "25px" }} />,
   },
-  docsRepositoryBase: 'https://github.com/willisjordancc/documentation-starter-kit/blob/main',
+  docsRepositoryBase: 'https://github.com/combined-curiosity/documentation-starter-kit/blob/main',
   feedback: {
     useLink: () => "https://combinedcuriosity.slack.com/archives/C042JJE86AH",
   },
@@ -55,7 +55,7 @@ const config: DocsThemeConfig = {
   primaryHue: { dark: 480, light: 650 },
   primarySaturation: { dark: 70, light: 100 },
   project: {
-    link: 'https://github.com/willisjordancc/documentation-starter-kit',
+    link: 'https://github.com/combined-curiosity/documentation-starter-kit',
   },
   sidebar: {
     autoCollapse: true,
