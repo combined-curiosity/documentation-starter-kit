@@ -1,0 +1,201 @@
+# replicating data
+
+we use a combination of foreign data wrappers and logical replication to bring data into our core warehouse for analysis (both postgres-native)
+
+## foreign data wrappers
+
+We use foreign data wrappers (FDWs) to connect our core warehouse to the XMS database. documenatation can be found [here](https://www.postgresql.org/docs/current/postgres-fdw.html)
+
+# 1. setting up the server
+
+step one is creating the `server` in the warehouse
+
+```sql
+CREATE SERVER lx_prod_fdw FOREIGN DATA WRAPPER postgres_fdw OPTIONS (
+	host 'db.wksqtyfukzxegbhllypr.supabase.co',
+	port '6543',
+	dbname 'postgres',
+	fetch_size '50000'
+);
+```
+
+`fetch_size` is one of many options, this one covers how many rows to fetch at a time from the remote server. the default is `100` so we increased it because our `dbt` models for the most part import and reformat entire tables
+
+# 2. setting up the users
+
+
+## source database 
+fdws rely on the user on the target database (in this case the warehouse) acting as a user on the remote database (in this case the xms db).
+
+```sql
+-- create the user with a strong password
+create user fdw_readonly_warehouse with encrypted password 'strong-password-here';
+
+-- grant basic read only permissions for each schema the user needs access to
+begin;
+GRANT USAGE ON SCHEMA public TO fdw_readonly_warehouse;
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO fdw_readonly_warehouse;
+GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO fdw_readonly_warehouse;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO fdw_readonly_warehouse;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT USAGE ON SEQUENCES TO fdw_readonly_warehouse;
+commit;
+
+-- because we rely on row level security on the xms, we need a policy that allows access to all rows for this user.
+-- this will have to be run for all the tables that have rls policies
+begin;
+CREATE POLICY analytics_readonly ON orders FOR SELECT to fdw_readonly_warehouse USING (true);
+CREATE POLICY analytics_readonly ON resources FOR SELECT to fdw_readonly_warehouse USING (true);
+commit;
+```
+
+### maintaining rls policies
+
+as we add new tables with rls policies this set of policies will have to be updated; here are some helpful queries to find active policies and generate new policies:
+
+```sql
+-- drop existing set of policy statements
+with active_analytics_policies as (
+    select distinct schemaname as schema_name, tablename as tbl_name
+    from pg_policies
+    where policyname = 'analytics_readonly'
+)
+select
+	'drop policy if exists analytics_readonly on ' || schema_name || '.' || tbl_name || ';'
+from active_policies;
+
+-- generate new policy statements
+with active_policies as (
+    select distinct schemaname as schema_name, tablename as tbl_name
+    from pg_policies
+    where policyname !='analytics_readonly'
+)
+select
+	'create policy analytics_readonly on ' || schema_name || '.' || tbl_name || ' for select to fdw_readonly_warehouse using (true);'
+from active_policies;
+```
+
+these queries will output queries to run to create / drop the policies - we could potentially write pg functions to manage this but until then the simplest way to administer this is to copy / paste the output into a transaction block with `begin;` & `commit;`
+
+when this is done, login as the `fdw_readonly_warehouse` user and verify that the tables can be selected from
+
+## target database
+
+now that the fdw user exists, we need to creat user mappings for the `warehouse` users that need access to the foreign data wrapper using the `fdw_readonly_warehouse` user.
+
+on the warehouse run this for each `warehouse` user that needs access:
+
+```sql
+create user mapping for dbt_prod SERVER lx_prod_fdw OPTIONS (user 'fdw_readonly_warehouse', password 'the-password-you-set-previously');
+```
+
+
+note: with the new supabase ipv6 updates, users need the supabase project id appended to their username to log in like this: `<user_name>.<project_id>` so the command would be:
+
+```sql
+create user mapping for dbt_prod SERVER lx_prod_fdw OPTIONS (user 'fdw_readonly_warehouse.wksqtyfukzxegbhllypr', password 'the-password-you-set-previously');
+```
+
+
+# 3. importing the schemas
+
+now that we've established the user connection, we need to import the schemas that we want to use in the target database.
+
+before we import the schemas, we need to make sure we have all the required data types for the schemas - notably all of the enums we have in the xms. this will have to be mainained over time (after importing, if a new enum is added on the source db, queries to tables with that enum will fail) so here are queries that 1. find enums on the source database, 2. drop enums on the target database, and 3. create new enums with updated values.
+
+
+### source db queries
+
+these will output delete and create statements that must be run on the target database (warehouse)
+```sql
+-- this will output a list of delete if exists statements for each enum
+with enum_types as (
+    select
+		distinct typname as name
+	from pg_type
+	where typcategory = 'E'
+		and typowner = 10
+)
+select
+	'DROP TYPE IF EXISTS '
+	|| name
+	|| ';'
+from enum_types;
+
+
+-- this will output a list of create statements for each enum and their values.
+-- the `enum_types` cte groups the `pg_enum` values by the name of the enum
+-- into an comma-separated list of the enums wrapped in single quotes
+-- then the outer query formats a create sttatement for that enum name and the list of values
+
+-- `typcategory = 'E'` in the cte denotes we're looking for enums
+-- `typowner = 10` denotes that we're looking for enums created by our admin user, this oid can be found 
+-- in the `pg_authid` table.
+
+-- note: if we add custom types other than these enums, we will have to construct different queries
+-- to extract and format the types
+with enum_types as (
+	select
+		typname as name,
+		string_agg($$'$$ || enumlabel::text || $$'$$, ', ' order by enumsortorder asc) as fields
+	from pg_type
+	join pg_enum on pg_type.oid = pg_enum.enumtypid
+	where typcategory = 'E'
+		and typowner = 10
+	group by 1
+)
+select
+	'CREATE TYPE '
+	|| name
+	|| ' AS ENUM ('
+	|| fields
+	|| ');'
+from enum_types;
+```
+
+The output of the above queries can by copy/pasted into a `begin;` / `commit;` block in the target database and run to re-sync the types.
+
+these queries can and should also be run in a transaction - this query also includes drop statements to get rid of the old versions of the schemas:
+
+```sql
+begin;
+drop schema if exists lx_prod cascade;
+create schema lx_prod;
+import foreign schema public from server lx_prod_fdw
+INTO lx_prod;
+
+drop schema if exists xms_marketing;
+create schema xms_marketing;
+import foreign schema marketing from server lx_prod_fdw
+into xms_marketing;
+
+drop schema if exists xms_experiments cascade;
+create schema xms_experiments;
+import foreign schema experiments from server lx_prod_fdw
+into xms_experiments;
+
+drop schema if exists xms_attributes cascade;
+create schema attributes;
+import foreign schema attributes from server lx_prod_fdw
+into xms_attributes;
+
+drop schema if exists xms_legacy_payments cascade;
+create schema xms_legacy_payments;
+import foreign schema legacy_payments from server lx_prod_fdw
+into xms_legacy_payments;
+
+drop schema if exists xms_webinars cascade;
+create schema xms_webinars;
+import foreign schema webinars from server lx_prod_fdw
+into xms_webinars;
+commit;
+```
+
+finally, now that we dropped adn recreated the schemas, we must grant permissions to the `read_write` and `read_only` users using our standard cc permissions set:
+
+```sql 
+select cc_permissions_standard_read_write('xms_marketing', 'read_write')
+union all
+select cc_permissions_standard_read_only('xms_marketing', 'read_only');
+```
+
+copy the output of this query for each of the schemas into a `begin;` / `commit;` block and run it to allow the users to access the refreshed schemas
