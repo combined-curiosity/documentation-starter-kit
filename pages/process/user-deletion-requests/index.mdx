@@ -92,8 +92,32 @@ The following query can be used to bulk update all instances of the person's ema
 
 ## Removing the user from the xms database [#xms-removal]
 
+
 ## Removing the user from event tracking [#event-tracking-removal]
+
+This comes either 4 or 5 stages:
+
+1. delete the `identity` entries that are related to the user
+2. delete the `person` entry that represents all the identities
+3. delete all `event` entries tied to the deleted `person`
+4. delete all `call_log` entries that are related to those deleted `events`
+5. if they were a lead or purchaser, search for possible integration events and delete those. current list of topics are:
+- `/v1/integrations/users/action/`
+- `/v1/integrations/users/lead/`
+- `/v1/integrations/users/system_action/`
+- `/v1/integrations/users/update_email`
+- `/v1/integrations/orders/`
+
+
 
 ## Removing the user from Zendesk [#zendesk-removal]
 
-## Removing them from Stripe [#stripe-removal]
+<Callout type="info">
+**TO DISCUSS**: because we don't use zendesk for marketing purposes, the argument for preserving these data is that we have a legitimate business interest in keeping the record of their customer service interactions in zendesk because it would improve our level of service with the person if they reach out to us in the future. 
+</Callout>
+
+## Removing the user from Stripe [#stripe-removal]
+
+<Callout type="info">
+**TO DISCUSS**: arguably we would only have to do this for people who recieved a refund because they're no longer a customer with us. If we remove them from stripe, we should just change their email address to a placeholder that we would use on the xms or elsewhere to track that a refund occurred. That said it doesn't seem totally necessary to remove them here because of the nature of a purchase - the argument is that we have a legitimate business interest in maintaining the fact that someone with email address `x@example.com` purchased from us in the past and subsequently requested a refund because in the future we might decide to not honor their credit card due to the cost of transacting with them
+</Callout>
