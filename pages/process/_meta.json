@@ -11,11 +11,12 @@
     "type": "separator"
   },
   "brand": "Create a new brand",
-  "payment-objects":"Products, Packages & Offers",
+  "payment-objects": "Products, Packages & Offers",
   "learning-objects": "Courses, Classes & Lessons",
   "others": {
     "title": "",
     "type": "separator"
   },
-  "webinars": "Webinars"  
+  "router": "Router 2.0",
+  "webinars": "Webinars"
 }

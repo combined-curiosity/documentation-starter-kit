@@ -1,0 +1,109 @@
+import { Steps } from "nextra/components";
+
+# Router 2.0
+
+- [Technical Documentation](https://github.com/combined-curiosity/router-lambda-cloudfront/blob/main/README.md)
+
+Welcome to the comprehensive documentation for creating entities for the new Router 2.0. The purpose of this documentation is to guide you through the creation and optimization of routing strategies for our diverse web requests.
+
+At the core of this system lies the Configuration (`RouterConfig`), serving as the overarching blueprint that orchestrates the routing logic. Each Configuration is composed of Cases (`RouterCaseTargets`), rule-based conditions (`CaseRules`) that dictate how incoming Request Signals are to be handled. Cases (`CaseConfig`), in turn, are constructed from Rules (`RuleConfig`), which pinpoint specific attributes within the Request Signal for evaluation. The smallest unit, the Rule, encapsulates individual conditions utilizing our proprietary Combined Curiosity Case Query Language (C3QL), offering a rich set of comparisons for dynamic routing decisions. Additionally, each Case is associated with a Target (`TargetConfig`), defining the destination or action to be taken when the rules are satisfied.
+
+We appreciate your dedication to optimizing web traffic routing, and to aid you in this endeavor, we've included step-by-step guides for working with Configurations, Cases, Rules, and Targets. Let's embark on a journey to unlock the full potential of our router configuration system.
+
+## Rules
+
+Rules **can** be reused across multiple cases.
+
+### Create a rule
+
+<Steps>
+  ### Navigate to the [Router 2.0](https://prd-xms-api.combinedcuriosity.com/admin/router/) page.
+  ### Click on the `Rules` tab.
+  ### Click on the plus icon next to the section title.
+  ### Complete all necessary fields.
+  ### Click `Create`.
+  ### Look for the success message confirming the rule was created.
+  ### The section will automatically refresh, and the new rule will appear in the list.
+</Steps>
+
+## Cases
+
+Cases **can** be reused across multiple configurations. Cases *should*, at a minimum, contain one rule concerning the split of buckets and one rule concerning the path.
+
+### Create a case
+
+<Steps>
+  ### Navigate to the [Router 2.0](https://prd-xms-api.combinedcuriosity.com/admin/router/) page.
+  ### Click on the `Cases` tab.
+  ### Click on the plus icon next to the section title.
+  ### Complete all necessary fields.
+  You will see a warning icon next to the selected section. Hovering over the icon will display the missing **required** rules. At a minimum, a case should contain one rule concerning the split of buckets and one rule concerning the path.
+  ### Click `Create`.
+  ### Look for the success message confirming the case was created.
+  ### The section will automatically refresh, and the new case will appear in the list.
+</Steps>
+
+## Targets
+
+Targets **can** be reused across configurations within the **same** parent domain.
+
+### Create a target
+
+<Steps>
+  ### Navigate to the [Router 2.0](https://prd-xms-api.combinedcuriosity.com/admin/router/) page.
+  ### Click on the `Targets` tab.
+  ### Click on the plus icon next to the section title.
+  ### Complete all necessary fields.
+  ### Click `Create`.
+  ### Look for the success message confirming the target was created.
+  ### The section will automatically refresh, and the new target will appear in the list.
+</Steps>
+
+## Configurations
+
+Configurations are **unique** to each domain. They can also only be activated once. When a new configuration on the same domain is activated the previous configuration is deactivated. *Once a configuration has been activated it can no longer be edited.*
+
+### Create a configuration
+
+<Steps>
+  ### Navigate to the [Router 2.0](https://prd-xms-api.combinedcuriosity.com/admin/router/) page.
+  ### Click on the `Configurations` tab.
+  ### Click on the plus icon next to the section title.
+  ### Complete all necessary fields.
+  ### Click `Create`.
+  ### Look for the success message confirming the configuration was created.
+  ### The section will automatically refresh, and the new configuration will appear in the list.
+</Steps>
+
+### Copy an existing configuration
+
+<Steps>
+  ### Navigate to the [Router 2.0](https://prd-xms-api.combinedcuriosity.com/admin/router/) page.
+  ### Click on the `Configurations` tab.
+  ### Click on the copy button on the configuration you want to copy.
+  ### Look for the success message confirming the configuration was copied.
+  ### The section will automatically refresh, and the new configuration will appear in the list.
+</Steps>
+
+### Edit an existing configuration
+
+<Steps>
+  ### Navigate to the [Router 2.0](https://prd-xms-api.combinedcuriosity.com/admin/router/) page.
+  ### Click on the `Configurations` tab.
+  ### Click on the edit button on the configuration you want to edit.
+  ### Make the necessary changes.
+  ### Click `Save`.
+  ### Look for the success message confirming the configuration was edited.
+  ### The section will automatically refresh, and the new configuration will appear in the list.
+</Steps>
+
+### Activate a configuration
+
+<Steps>
+  ### Navigate to the [Router 2.0](https://prd-xms-api.combinedcuriosity.com/admin/router/) page.
+  ### Click on the `Configurations` tab.
+  ### Click on the activate button on the configuration you want to activate. ### You will be prompted to confirm the activation with a modal that displays the differences between the two configurations.
+  ### Click `Activate`.
+  ### Look for the success message confirming the configuration was activated.
+  ### The section will automatically refresh, and the configuration will have updated to display that it has been activated.
+</Steps>
