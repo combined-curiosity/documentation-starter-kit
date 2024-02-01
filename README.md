@@ -8,7 +8,7 @@ This site was built from a template for creating documentation with [Nextra](htt
 
 ## Local Development
 
-First, run `npm i` to install the dependencies.
+First, run `npm install` to install the dependencies.
 
 Then, run `npm dev` to start the development server and visit localhost:3000.
 
