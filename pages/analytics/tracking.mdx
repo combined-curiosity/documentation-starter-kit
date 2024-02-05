@@ -1,6 +1,6 @@
 # Tracking
 
-## TLDR
+## Summary
 
 A track function is run from xms-api. Its data structure must match that of an event type set up in collector-js. When track is run, it saves its data to the aotg table on the events db. The newly saved events type is then checked by the events server to see if it needs to pass the information onto drip or other integrations.
 
@@ -9,8 +9,6 @@ A track function is run from xms-api. Its data structure must match that of an e
 1. Decide your data structure, pr and release it in collector-js
 2. If the new event needs to get into drip, update the match function in the events repo’s `server_event_integrations` file
 3. Add `track(` to where its needed in the xms-api, and pass in the data matching the structure used by collector-js
-
-# Context:
 
 ## The Repos
 
@@ -23,6 +21,7 @@ A track function is run from xms-api. Its data structure must match that of an e
 
 - where the typescript types of the event data structure live
 - in order to update or add a new event type, the changes in the repo must be released, and then the package of xms-api must be updated
+- make sure that when releasing, you update the package and package-lock of the collector-js branch, and then run an `npm i` after updating the version in the xms-api's package
 
 ### events
 
