@@ -1,0 +1,41 @@
+# Tracking
+
+## Summary
+
+A track function is run from xms-api. Its data structure must match that of an event type set up in collector-js. When track is run, it saves its data to the aotg table on the events db. The newly saved events type is then checked by the events server to see if it needs to pass the information onto drip or other integrations.
+
+## How to set up tracking a new event
+
+1. Decide your data structure, pr and release it in collector-js
+2. If the new event needs to get into drip, update the match function in the events repo’s `server_event_integrations` file
+3. Add `track(` to where its needed in the xms-api, and pass in the data matching the structure used by collector-js
+
+## The Repos
+
+### xms-api
+
+- where the track functions are run and the data is sent to the aotg table in the events db
+- does not touch drip or other marketing integrations directly
+
+### collector-js
+
+- where the typescript types of the event data structure live
+- in order to update or add a new event type, the changes in the repo must be released, and then the package of xms-api must be updated
+- make sure that when releasing, you update the package and package-lock of the collector-js branch, and then run an `npm i` after updating the version in the xms-api's package
+
+### events
+
+- where the data sent to aotg is passed along to drip, as well as facebook and other integrations
+- in order for this information to be passed to Drip, it must match one of the cases in the events repo file `app/services/v1/integrations/server_event_integrations.py`
+
+## The 3rd Party Sites
+
+### metabase
+
+- analytics uses metabase to draw charts built off of the data in the main prd db and often the aotg table of the events db
+
+### drip
+
+- drip is used to automatically send emails corresponding to events
+- workflows are built in drip (usually by Ryan) with rules that dictate when an email is sent and with what data after what events
+- drip cannot fetch data itself — if you want to see the name of an object that you have the id for as an event parameter within drip, you have to look it up separately (through our admin dashboards or the db directly) — so any text you’ll want to see within drip must be saved to the track event’s meta (ie promptId and promptText)
