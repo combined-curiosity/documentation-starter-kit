@@ -52,6 +52,32 @@ _A successful payoff will be confirmed by a green message displayed at the top._
 | Payoff Invoice            | paid     |
 | Future Invoices           | canceled |
 
+## How to pay an invoice [#pay-invoice]
+
+You can pay off any invoice with the followings statuses:
+- draft
+- future
+- failed
+- open
+- past_due
+- pending
+- retry
+
+<Steps>
+  ### Navigate to the [User Dashboard](https://prd-xms-api.combinedcuriosity.io/admin/users/).
+  ### Locate the user and find the order containing the invoice to be paid.
+  ### In the invoice view, click the status icon on the invoice to pay.
+  ### Enter a reason for the manual payment and submit the form.
+</Steps>
+
+#### Resulting Statuses
+| Payment Object            | Status   |
+| ------------------------- | -------- |
+| Invoice                   | paid     |
+| Order Line Item           | paying or paid     |
+| Shipping Order Line Item  | paid     |
+| Order                     | paying or paid     |
+
 ## What the payment process looks like [#value-in-meaning]
 
 _This diagram illustrates the high-level flow of the payment process._
