@@ -2,4 +2,8 @@ import Image from "next/image";
 
 # Automated Shipping Process
 
-asdf
+### How does it work?
+
+When an order is made, our process `createShippoOrder` is run, which then runs `createShippoShipment` if the purchased package has physical products. This creates the customs declarations, selects the [user parcel template from Shippo](https://apps.goshippo.com/settings/packages), selects the rate, and creates the Shippo shipment, which then generates the label.
+All the support user needs to do is go to our [admin shipping page](https://prd-xms-api.combinedcuriosity.io/admin/shipping/) and click the download labels button. The recently created shipments that have not had their labels printed yet are automatically selected on page load, and when the download button is clicked, they are marked as printed, and all labels of the same package are joined into a single pdf and then downloaded for easy printing. Labels can be downloaded as many times as needed by simply reselecting the row and clicking the download button again.
+Shipment information and labels can also be found from the [user dashboard](https://prd-xms-api.combinedcuriosity.io/admin/users/) page under order summary.

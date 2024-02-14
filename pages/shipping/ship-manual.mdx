@@ -2,4 +2,12 @@ import Image from "next/image";
 
 # Manual Shipping Process
 
-asdf
+### When does a shipment need to be created manually?
+
+An automated error alerts go to our [#cc-shippo-shipping](https://combinedcuriosity.slack.com/archives/C033NHZEY1L) slack channel when a shipment fails creation, or an address has failed validation.
+In the case that you need to create a shipment manually, use the tool at the top of our [admin shipping page](https://prd-xms-api.combinedcuriosity.io/admin/shipping/).
+You will need to select a brand, select a user via email, select the order, and select the parcel. Once this valid information is given, the automated `createShippoShipment` process will run and the page will refresh, and you will then be able to see the newly created shipment at the top of the table and download its label to be printed.
+
+### When to ship an order directly through shippo
+
+In the case that there is not an order to create the shipment off of, such as in the case of giveaways or shipments made to CC employees, the tool cannot be used (this is a future development). In these such cases, the order and the shipment must both be created directly through Shippo's site.

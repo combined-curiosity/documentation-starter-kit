@@ -2,6 +2,16 @@ import Image from "next/image";
 
 # Shippo
 
-asdf
+We want to use the Shippo site directly as little as possible. All label creation, downloading, and information checking should be done through the [admin shipping page](https://prd-xms-api.combinedcuriosity.io/admin/shipping/) whenever possible. There are a few unavoidable cases where going directly to the Shippo site is acceptable.
 
-## When to ship an order directly through shippo
+### User parcel templates
+
+At this time, package skus must match the name of a [user parcel template from Shippo](https://apps.goshippo.com/settings/packages) in order to be correctly automatically created on order.
+
+### N/A in the printed column
+
+When N/A is shown in the printed column of a shipment row, that means that an error has occured in the shipment creation process and caused the label generation to fail. Check [Shippo](https://apps.goshippo.com/shipments) to see what the error was and report it in the [#cc-shippo-shipping](https://combinedcuriosity.slack.com/archives/C033NHZEY1L) slack channel.
+
+### Manual shipment creation directly through Shippo
+
+When a shipment requires manual shipment creation, and there is not an order to create the shipment off of (such as in the case of giveaways or shipments made to CC employees), our manual shipment creation tool cannot be used (this is a future development). In these such cases, the order and the shipment must both be created directly through Shippo's site.

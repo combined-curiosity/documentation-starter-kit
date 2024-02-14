@@ -4,8 +4,18 @@ import Image from "next/image";
 
 ### Slack Alerts
 
-In our [#cc-shippo-shipping](https://combinedcuriosity.slack.com/archives/C033NHZEY1L) slack channel
+Automatic alerts will be sent to our [#cc-shippo-shipping](https://combinedcuriosity.slack.com/archives/C033NHZEY1L) slack channel when a shipment fails automatic creation and when an address fails validation. The alerts will give details of the user and their order and what action needs to be taken.
+
+### Address validation
+
+The most common issue is an unvalidated address. Support will reach out to the customer and check their details, then the shipment will need to be created manually. The address can be updated within our manual shipment creation tool on the [admin shipping page](https://prd-xms-api.combinedcuriosity.io/admin/shipping/) after user and order selection with the change address button. In the case that the address is correct and has falsely failed validation, when you create the shipment manually, do not click the change address button, after entering the other information and clicking next click the override validation button. If this still gives an error, reach out to devs in [#cc-shippo-shipping](https://combinedcuriosity.slack.com/archives/C033NHZEY1L).
 
 ### Parcel data
 
 Our shipping processes are improving. Package skus and shippo parcel templates are a known trouble area that will be focused on next.
+For now, the package sku must be something the warehouse knows what to pack a shipment with, and it must match the name of a package template inside Shippo in order to set the package dimensions.
+Splitting this into separate fields is still in the planning stages (a shortened “sku” field to tell warehouse, and a more generic field that matches the package Shippo is looking for ie “9x2x2 box” or “polymailer”). The project is ticketed [here](https://linear.app/combined-curiosity/issue/ENG-2490/improve-shipping-processes).
+
+### Other shipment creation failure
+
+Sometimes it is just a hiccup in the apis that causes the error. Try to manually create it via our admin tool, and reach out to devs if it gives a new error.
