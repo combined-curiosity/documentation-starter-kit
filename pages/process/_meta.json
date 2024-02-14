@@ -18,5 +18,6 @@
     "type": "separator"
   },
   "router": "Router 2.0",
-  "webinars": "Webinars"
+  "webinars": "Webinars",
+  "polls": "Polls"
 }
