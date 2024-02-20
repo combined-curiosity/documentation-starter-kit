@@ -10,6 +10,25 @@ At the core of this system lies the Configuration (`RouterConfig`), serving as t
 
 We appreciate your dedication to optimizing web traffic routing, and to aid you in this endeavor, we've included step-by-step guides for working with Configurations, Cases, Rules, and Targets. Let's embark on a journey to unlock the full potential of our router configuration system.
 
+## What do we use router for?
+Router directs traffic from a router path to specific targets (landing pages). This is particularly useful for splitting traffic in an experiment, or personalization (coming soon) based on what we know about the user and/or traffic source. We can also use these in cases where we do not want to (or cannot) update the user-facing url, but can swap out the landing page experience (i.e. in ads, emails, etc). As such, most (all) user-facing links should be router links.
+
+## Definitions
+| Term   | Definition                       | Example |
+| :----- | :------------------------------- | :------ |
+| Router path | The user-facing url, where user traffic hits. | play.pianoinaflash.com/webinar-registration/ |
+| Target path | The target url, where the landing page content is hosted. | lp.pianoinaflash.com/blah-blah-blah |
+| Buckets     | User is assigned a random bucket value, 0-11. This determines what target they are served. | - |
+| Rules       | Rules are the conditions defined about the user traffic. | Specific router path, specific bucket values, or url parameters (future) |
+| Cases       | Cases are the collection of rules. Path and buckets must be defined | Combination of router path and specific bucket values |
+| Configuration | Where cases are tied to targets. Given any case, what target should router serve the user? Config is specific to domain and includes all case/target pairs for that domain | - |
+
+## Example Use Cases - Looms
+* Updating an existing router path
+    * [Part 1](https://www.loom.com/share/2fc64c5648a14ccead5d453013acfae4)
+    * [Part 2](https://www.loom.com/share/eec5421cebd3480b99ade27e074d2bfe)
+* [Activate configuration](https://www.loom.com/share/b1cc858795174132b66023fa2ae11852)
+
 ## Rules
 
 Rules **can** be reused across multiple cases.
@@ -69,11 +88,15 @@ Configurations are **unique** to each domain. They can also only be activated on
   ### Click on the `Configurations` tab.
   ### Click on the plus icon next to the section title.
   ### Complete all necessary fields.
-  The `Entries` portion of the form has to include at least one pairing of `Case` and `Target` in order to be submited. When you add a new entry it will be blank allowing you to select the order, `CaseConfig`, whether its a route or a redirect, and the `TargetConfig`. When clicking the add case or target button a modal will appear allowing you to search through existing cases and targets. Once you select the desired case or target *and* clicked the `Done` button it will be added to the entry. However until you click the `Save` check icon to the right nothing is actually recorded.
+  The `Entries` portion of the form has to include at least one pairing of `Case` and `Target` in order to be submitted. When you add a new entry it will be blank allowing you to select the order, `CaseConfig`, whether its a route or a redirect, and the `TargetConfig`. When clicking the add case or target button a modal will appear allowing you to search through existing cases and targets. Once you select the desired case or target *and* clicked the `Done` button it will be added to the entry. However until you click the `Save` check icon to the right nothing is actually recorded.
   ### Click `Create`.
   ### Look for the success message confirming the configuration was created.
   ### The section will automatically refresh, and the new configuration will appear in the list.
 </Steps>
+
+<Callout type="warning" emoji="❗️">
+  For each router path, all bucket values must be covered to proceed. Be careful to not accidentally overdefine bucket values, as the order of the configs will take precedent. For example, a case defining 100% of traffic that comes before a case defining 50% of the traffic will supercede the latter.
+</Callout>
 
 ### Copy an existing configuration
 
@@ -98,6 +121,7 @@ Configurations are **unique** to each domain. They can also only be activated on
 </Steps>
 
 ### Activate a configuration
+[Loom reference](https://www.loom.com/share/b1cc858795174132b66023fa2ae11852)
 
 <Steps>
   ### Navigate to the [Router 2.0](https://prd-xms-api.combinedcuriosity.com/admin/router/) page.
@@ -107,4 +131,18 @@ Configurations are **unique** to each domain. They can also only be activated on
   ### Click `Activate`.
   ### Look for the success message confirming the configuration was activated.
   ### The section will automatically refresh, and the configuration will have updated to display that it has been activated.
+</Steps>
+
+### Checking a configuration
+
+<Callout type="info" emoji="ℹ️">
+  This check makes sure that both the config is set up correctly and that there are no issues on the target landing pages.
+</Callout>
+
+<Steps>
+  ### After activating a configuration, it may take 10-15 minutes to update.
+  ### Go to a new or updated router path that you want to check.
+  ### If the path is on a split and you want to check all targets, reset your cookie in Chrome by going to the Dev Tools -> Application -> Cookies -> subdomain and searching for abtesting-unique-id
+  ### Double click and delete to clear this cookie. Your split will be re-assigned after reloading.
+  ### You may have to repeat the above steps a few times to view all variations.
 </Steps>
