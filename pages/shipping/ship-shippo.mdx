@@ -10,8 +10,8 @@ At this time, package skus must match the name of a [user parcel template from S
 
 ### N/A in the printed column
 
-When N/A is shown in the printed column of a shipment row, that means that an error has occured in the shipment creation process and caused the label generation to fail. Check [Shippo](https://apps.goshippo.com/shipments) to see what the error was and report it in the [#cc-shippo-shipping](https://combinedcuriosity.slack.com/archives/C033NHZEY1L) slack channel.
+When N/A is shown in the printed column of a shipment row, that means that an error has occurred in the shipment creation process and caused the label generation to fail. See the <b>Shipping Documentation > FAQ & Troubleshooting</b> page for more information on common reasons for this to occur.
 
 ### Manual shipment creation directly through Shippo
 
-When a shipment requires manual shipment creation, and there is not an order to create the shipment off of (such as in the case of giveaways or shipments made to CC employees), our manual shipment creation tool cannot be used (this is a future development). In these such cases, the order and the shipment must both be created directly through Shippo's site.
+When a shipment requires manual shipment creation, and there is not an order to create the shipment off of (such as in the case of giveaways or shipments made to CC employees), our manual shipment creation tool cannot be used (this is a future development). In these such cases, the order and the shipment must both be created directly through Shippo's site. Orders and shipments created this way do not exist in our own DB so they aren't displayed within any of our admin site pages. To make sure that the labels for shipments created this way are printed in the warehouse, an automatic slack alert is made to [#cc-shippo-shipping](https://combinedcuriosity.slack.com/archives/C033NHZEY1L) (triggered by a shippo webhook) on direct shippo shipment creation, asking that a support member react to the message with a green check mark once the label is printed.
