@@ -1,0 +1,140 @@
+import { Steps } from 'nextra/components';
+
+# Admin Site
+
+After the release 0.24.14, the admin site has switched to the app folder in Next. With it comes a layout, a template, shared context and a new design style using [flowbite](https://flowbite.com/docs/getting-started/introduction/). _**All components in the admin site should be created using flowbite components.**_
+
+## Layout
+Ours is used to set the metadata for our pages.
+
+_Layouts provide stability and maintain state across navigation, ideal for consistent site-wide components._
+
+## Template
+This is where we add the shared context and the navigation/footer components.
+
+_Templates reset state and re-render with each page visit, suited for specific page behavior_
+
+## Context
+
+```javascript
+{
+  brands: [], // it grabs the brands so they are always there
+  setBrands: () => {},
+  toast: {
+    open: false,
+    content: "",
+  },
+  setToast: () => {},
+}
+```
+
+## Usage
+
+<Steps>
+### Create a new page
+  Create the `page.tsx` file inside the `/app/admin` directory
+  - Add any components specific to the page to the same directory
+  - Add any components that are shared with other admin pages to `/app/admin/ui`  
+### Add page to navigation
+  - Open the `pages.tsx` file inside the `/app/admin/lib` directory
+  - Add the new page object to the `pages` array of the applicable group<br/>
+    _Currently we use a solid icon from the [react-icons library](https://react-icons.github.io/react-icons/) for each page_
+</Steps>
+
+### UI
+
+#### Header
+  This component is used to display the header of a page. It contains a search bar, filter dropdown, and action button (_optional_).
+
+  props:
+  - isLoading/setIsLoading: Needs a loading state for the page and is used to show the skeletons when grabbing the data objects for the page
+  - itemSetter: This is the function used to set the data objects for the page. _e.g. if the page is for brands, the itemSetter would be setBrands_
+  - itemFetcher: This is the function used to fetch the data objects from the database. It is usually located in the actions file for the page.
+  - categories: This is an array of objects used to filter the data objects. Each object consists of a name and options. The name is listed at the top of the filter section and the options are expected in a `{ value, label }` format.
+
+  When utilizing the search and filter capabilities you will need to add the following to the action method that fetches the data objects:
+  ```javascript
+  let searchParam: string | undefined;
+  let filters: string[] = [];
+
+  // example for brands
+  // you will need an if statement for each section of your filter
+  if (brandId) {
+    filters.push(...[brandId].map((id) => `brandId:${id}`));
+  }
+
+  if (anotherSection) {
+    filters.push(...[anotherSection].map((id) => `anotherSection:${id}`));
+  }
+
+  if (search) {
+    searchParam = search;
+  }
+
+  let prismaFilter = {};
+
+  if (Object.keys(filters).length > 0) {
+    prismaFilter = buildFilters(filters);
+  }
+
+  if (searchParam) {
+    prismaFilter = {
+      ...prismaFilter,
+      // this is where you will add a section for every column you want to search on
+      OR: [
+        {
+          name: { contains: searchParam, mode: "insensitive" },
+        },
+        {
+          description: { contains: searchParam, mode: "insensitive" },
+        },
+        {
+          whateverelse: { contains: searchParam, mode: "insensitive" },
+        },
+      ],
+    };
+  }
+
+  const dataObject = await prisma.dataObject.findMany({
+    where: prismaFilter,
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+  ```
+
+  #### Form/FormInput
+  The `Form` componenet is a styling wrapper for the `FormInput` component. Simply add it like the example below.
+
+  ```javascript
+  <Form
+    handleSubmit={handleSubmit}
+    submitMethod={createResource}
+    submitText="Submit Text"
+  >
+  ```
+
+  Inside the component you are using the `Form` component in pull all of the `react-hook-form` methods from the `useForm` hook and pass them to each `FormInput` component. Below are a few examples of how to use the `FormInput` component.
+
+  ```javascript
+  <FormInput
+    errors={errors}
+    name="brand"
+    register={register}
+    type="select"
+    options={brands.map((brand) => ({
+      value: brand.id,
+      label: brand.name,
+    }))}
+    validation={{ required: "Brand is required" }}
+  />
+
+  <FormInput
+    errors={errors}
+    name="name"
+    register={register}
+    validation={{ required: "Name is required" }}
+  />
+
+  <FormInput name="description" type="textarea" register={register} />
+  ```
