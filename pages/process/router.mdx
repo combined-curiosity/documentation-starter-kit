@@ -92,6 +92,20 @@ Targets **can** be reused across configurations within the **same** parent domai
 
 Configurations are **unique** to each domain. They can also only be activated once. When a new configuration on the same domain is activated the previous configuration is deactivated. *Once a configuration has been activated it can no longer be edited.*
 
+### Copy an existing configuration
+
+<Callout type="warning" emoji="❗️">
+  Temporary process: please post in #router slack channel when you are copying a config, before launch. This is to ensure that someone else doesn't ALSO end up copying the currently live config and then version control gets out of sync.
+</Callout>
+
+<Steps>
+  ### Navigate to the [Router 2.0](https://prd-xms-api.combinedcuriosity.com/admin/router/) page.
+  ### Click on the `Configurations` tab.
+  ### Click on the copy button on the configuration you want to copy.
+  ### Look for the success message confirming the configuration was copied.
+  ### The section will automatically refresh, and the new configuration will appear in the list.
+</Steps>
+
 ### Create a configuration
 
 <Steps>
@@ -108,16 +122,6 @@ Configurations are **unique** to each domain. They can also only be activated on
 <Callout type="warning" emoji="❗️">
   For each router path, all bucket values must be covered to proceed. Be careful to not accidentally overdefine bucket values, as the order of the configs will take precedent. For example, a case defining 100% of traffic that comes before a case defining 50% of the traffic will supercede the latter.
 </Callout>
-
-### Copy an existing configuration
-
-<Steps>
-  ### Navigate to the [Router 2.0](https://prd-xms-api.combinedcuriosity.com/admin/router/) page.
-  ### Click on the `Configurations` tab.
-  ### Click on the copy button on the configuration you want to copy.
-  ### Look for the success message confirming the configuration was copied.
-  ### The section will automatically refresh, and the new configuration will appear in the list.
-</Steps>
 
 ### Edit an existing configuration
 
